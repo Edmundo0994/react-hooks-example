@@ -8,6 +8,10 @@
 
 */
 
+.transition {
+  transition: 500ms;
+}
+
 .App {
   text-align: center;
 }
@@ -23,15 +27,57 @@
   padding: 0 1rem;
 }
 
-.transition {
-  transition: 500ms;
+.Header button {
+  background-color: var(--navajo-white);
+  border-radius: 1rem;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.searchBar {
+  display: flex;
+  padding: 0 1rem;
+}
+
+@media screen and (max-width: 680px){
+  .searchBar {
+    flex-direction: column;
+  }
+  .searchBar div {
+    padding: 1rem 0.5rem!important;
+  }
+  .Characters {
+    padding: 1rem!important;
+  }
+}
+
+.searchBar div {
+  flex: 1;
+  text-align: start;
+  padding: 1rem;
+}
+
+.searchBar label {
+  display: block;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.searchBar div input{
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 1rem;
+  border: 1px solid var(--copper-crayola);
 }
 
 .Characters {
-  padding: 3rem;
+  padding: 1.5rem 3rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
+  justify-items: center;
 }
 
 .Dark {
@@ -48,6 +94,7 @@
   border-radius: 1rem;
   color: white;
   text-align: left;
+  max-width: 15rem;
 }
 
 .Cart img {
@@ -55,6 +102,16 @@
   height: 30vh;
   width: 100%;
   object-fit: cover;
+}
+
+.Cart h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Cart h4 span {
+  cursor: pointer;
 }
 
 .Cart p span {

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import DarkModeContext from "../context/DarkModeContext";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const { darkMode, setDarkMode } = useContext(DarkModeContext);
@@ -9,9 +10,13 @@ export default function Header() {
   return (
     <div className="Header">
       <h1>React Hooks</h1>
-      <button type="button" onClick={handleClick}>
-        {darkMode ? "Dark Mode" : "Ligth Mode"}
-      </button>
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        type="button"
+        onClick={handleClick}
+      >
+        {darkMode ? "🌚" : "🌞"}
+      </motion.button>
     </div>
   );
 }
