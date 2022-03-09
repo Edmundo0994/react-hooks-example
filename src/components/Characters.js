@@ -29,23 +29,26 @@ export default function Characters() {
   const [characters, setCharacters] = useState([]);
   const [searchByName, setSearchByName] = useState("");
   const [searchBySpecie, setSearchBySpecie] = useState("");
+  const searchByNameInput = useRef(null);
+  const searchBySpecieInput = useRef(null);
 
   const [state, dispatch] = useReducer(favoriteReducer, initialState);
   const { darkMode } = useContext(DarkModeContext);
   const charactersStyles = darkMode ? "Characters Dark transition" : "Characters transition";
 
+  const fetchInfo = async () => {
+    try {
+      await fetch("https://rickandmortyapi.com/api/character")
+        .then((response) => response.json())
+        .then((data) => setCharacters(data.results));
+    } catch (err) {
+      console.log("Hubo un error al tratar de obtener los Characters", err);
+    }
+  };
+
   useEffect(() => {
-    const fetchInfo = async () => {
-      try {
-        await fetch("https://rickandmortyapi.com/api/character")
-          .then((response) => response.json())
-          .then((data) => setCharacters(data.results));
-      } catch (err) {
-        console.log("Hubo un error al tratar de obtener los Characters", err);
-      }
-    };
     fetchInfo();
-  }, [characters]);
+  }, []);
 
   const filtered = useMemo(
     () =>
@@ -59,7 +62,6 @@ export default function Characters() {
     [characters, searchByName, searchBySpecie]
   );
 
-  console.log(filtered);
   return (
     <>
       <SearchBar
@@ -68,6 +70,8 @@ export default function Characters() {
           searchBySpecie,
           setSearchByName,
           setSearchBySpecie,
+          searchByNameInput,
+          searchBySpecieInput,
           charactersStyles,
         }}
       />

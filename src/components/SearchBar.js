@@ -1,20 +1,29 @@
 export default function SearchBar({ values }) {
-  const { searchByName, searchBySpecie, setSearchByName, setSearchBySpecie } = values;
-  const handleSearchByName = (e) => {
-    setSearchByName(e.target.value);
+  const {
+    searchByName,
+    searchBySpecie,
+    setSearchByName,
+    setSearchBySpecie,
+    searchByNameInput,
+    searchBySpecieInput,
+    characterStyles,
+  } = values;
+  const classStyles = "searchBar " + characterStyles;
+  const handleSearchByName = () => {
+    setSearchByName(searchByNameInput.current.value);
   };
-  const handleSearchBySpecie = (e) => {
-    setSearchBySpecie(e.target.value);
+  const handleSearchBySpecie = () => {
+    setSearchBySpecie(searchBySpecieInput.current.value);
   };
   return (
-    <div className="searchBar">
+    <div className={classStyles}>
       <div>
         <label>Name: </label>
-        <input type="text" value={searchByName} onChange={handleSearchByName} />
+        <input type="text" value={searchByName} ref={searchByNameInput} onChange={handleSearchByName} />
       </div>
       <div>
         <label>Species: </label>
-        <input type="text" value={searchBySpecie} onChange={handleSearchBySpecie} />
+        <input type="text" value={searchBySpecie} ref={searchBySpecieInput} onChange={handleSearchBySpecie} />
       </div>
     </div>
   );
