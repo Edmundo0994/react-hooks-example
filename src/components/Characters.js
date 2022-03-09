@@ -1,12 +1,15 @@
-import { useState, useEffect, useContext, useReducer, useMemo, useRef } from "react";
+import { useState, useContext, useReducer, useMemo, useRef } from "react";
 import Cart from "./Cart";
 import DarkModeContext from "../context/DarkModeContext";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchBar from "./SearchBar";
+import useCharaters from "../hooks/useCharaters";
 
 const initialState = {
   favoritesId: [],
 };
+
+const API = "https://rickandmortyapi.com/api/character";
 
 const favoriteReducer = (state, action) => {
   switch (action.type) {
@@ -26,29 +29,16 @@ const favoriteReducer = (state, action) => {
 };
 
 export default function Characters() {
-  const [characters, setCharacters] = useState([]);
   const [searchByName, setSearchByName] = useState("");
   const [searchBySpecie, setSearchBySpecie] = useState("");
   const searchByNameInput = useRef(null);
   const searchBySpecieInput = useRef(null);
 
+  const characters = useCharaters(API);
+
   const [state, dispatch] = useReducer(favoriteReducer, initialState);
   const { darkMode } = useContext(DarkModeContext);
   const charactersStyles = darkMode ? "Characters Dark transition" : "Characters transition";
-
-  const fetchInfo = async () => {
-    try {
-      await fetch("https://rickandmortyapi.com/api/character")
-        .then((response) => response.json())
-        .then((data) => setCharacters(data.results));
-    } catch (err) {
-      console.log("Hubo un error al tratar de obtener los Characters", err);
-    }
-  };
-
-  useEffect(() => {
-    fetchInfo();
-  }, []);
 
   const filtered = useMemo(
     () =>
