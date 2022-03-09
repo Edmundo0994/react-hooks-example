@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 export default function SearchBar({ values }) {
   const {
     searchByName,
@@ -9,12 +11,21 @@ export default function SearchBar({ values }) {
     characterStyles,
   } = values;
   const classStyles = "searchBar " + characterStyles;
-  const handleSearchByName = () => {
+  // const handleSearchByName = () => {
+  //   setSearchByName(searchByNameInput.current.value);
+  // };
+
+  const handleSearchByName = useCallback(() => {
     setSearchByName(searchByNameInput.current.value);
-  };
-  const handleSearchBySpecie = () => {
+  }, [setSearchByName, searchByNameInput]);
+
+  // const handleSearchBySpecie = () => {
+  //   setSearchBySpecie(searchBySpecieInput.current.value);
+  // };
+
+  const handleSearchBySpecie = useCallback(() => {
     setSearchBySpecie(searchBySpecieInput.current.value);
-  };
+  }, [setSearchBySpecie, searchBySpecieInput]);
   return (
     <div className={classStyles}>
       <div>
